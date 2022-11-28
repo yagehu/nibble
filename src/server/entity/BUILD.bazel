@@ -1,0 +1,13 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//src/server:__subpackages__"])
+
+rust_library(
+    name = "entity",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "//src/server/model",
+        "@crates//:time",
+        "@crates//:uuid",
+    ],
+)

@@ -1,0 +1,47 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test_suite")
+
+package(default_visibility = [
+    "//src/server/bin:__pkg__",
+    "//src/server/test_app:__pkg__",
+])
+
+filegroup(
+    name = "migrations",
+    srcs = glob(["migrations/**/*.sql"]),
+)
+
+filegroup(
+    name = "test_config",
+    srcs = ["tests/config.yaml"],
+)
+
+rust_library(
+    name = "server",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "//src/server/config",
+        "//src/server/controller",
+        "//src/server/handler",
+        "//src/server/repository",
+        "@crates//:axum",
+        "@crates//:color-eyre",
+        "@crates//:diesel-async",
+        "@crates//:hyper",
+    ],
+)
+
+rust_test_suite(
+    name = "tests",
+    timeout = "short",
+    srcs = glob(["tests/**/*.rs"]),
+    data = [
+        ":migrations",
+        ":test_config",
+    ],
+    deps = [
+        "//src/server/test_app",
+        "//src/thirdparty/libpq",
+        "@crates//:serde_json",
+        "@crates//:tokio",
+    ],
+)

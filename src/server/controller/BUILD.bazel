@@ -1,0 +1,20 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//src/server:__subpackages__"])
+
+rust_library(
+    name = "controller",
+    srcs = glob(["src/**/*.rs"]),
+    proc_macro_deps = [
+        "@crates//:async-trait",
+    ],
+    deps = [
+        "//src/server/entity",
+        "//src/server/model",
+        "//src/server/repository",
+        "@crates//:color-eyre",
+        "@crates//:time",
+        "@crates//:tracing",
+        "@crates//:uuid",
+    ],
+)

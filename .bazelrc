@@ -1,0 +1,2 @@
+build:check --@rules_rust//rust/settings:pipelined_compilation=True
+build:check --output_groups=build_metadata

@@ -1,0 +1,100 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_rust",
+    sha256 = "324c2a86a8708d30475f324846b35965c432b63a35567ed2b5051b86791ce345",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.13.0/rules_rust-v0.13.0.tar.gz"],
+)
+
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+
+rules_rust_dependencies()
+
+rust_register_toolchains(
+    edition = "2021",
+)
+
+load("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
+
+rust_analyzer_dependencies()
+
+load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository")
+
+crates_repository(
+    name = "crates",
+    cargo_lockfile = "//:Cargo.lock",
+    isolated = False,
+    lockfile = "//:Cargo.Bazel.lock",
+    packages = {
+        "async-trait": crate.spec(version = "0.1.59"),
+        "axum": crate.spec(version = "0.6.1"),
+        "axum-macros": crate.spec(version = "0.3.0"),
+        "color-eyre": crate.spec(version = "0.6.2"),
+        "config": crate.spec(version = "0.13.2"),
+        "diesel": crate.spec(
+            features = [
+                "postgres",
+                "time",
+                "uuid",
+            ],
+            version = "2.0.2",
+        ),
+        "diesel-async": crate.spec(
+            features = [
+                "deadpool",
+                "postgres",
+            ],
+            version = "0.2.0",
+        ),
+        "diesel_migrations": crate.spec(version = "2.0.0"),
+        "futures": crate.spec(version = "0.3.25"),
+        "hyper": crate.spec(
+            features = ["server"],
+            version = "0.14.23",
+        ),
+        "opentelemetry": crate.spec(version = "0.18.0"),
+        "reqwest": crate.spec(
+            default_features = False,
+            features = [
+                "json",
+                "rustls-tls",
+            ],
+            version = "0.11.13",
+        ),
+        "rustls": crate.spec(version = "0.20.7"),
+        "tokio-postgres": crate.spec(version = "0.7.7"),
+        "tokio-postgres-rustls": crate.spec(version = "0.9.0"),
+        "serde": crate.spec(
+            features = ["derive"],
+            version = "1.0.148",
+        ),
+        "serde_json": crate.spec(version = "1.0.91"),
+        "serde_yaml": crate.spec(version = "0.9.16"),
+        "thiserror": crate.spec(version = "1.0.37"),
+        "time": crate.spec(
+            features = ["serde-human-readable"],
+            version = "0.3.17",
+        ),
+        "tokio": crate.spec(
+            features = ["full"],
+            version = "1.22.0",
+        ),
+        "tracing": crate.spec(version = "0.1.37"),
+        "tracing-opentelemetry": crate.spec(version = "0.18.0"),
+        "tracing-subscriber": crate.spec(
+            features = ["env-filter"],
+            version = "0.3.16",
+        ),
+        "uuid": crate.spec(
+            features = [
+                "serde",
+                "v4",
+            ],
+            version = "1.2.2",
+        ),
+    },
+)
+
+load("@crates//:defs.bzl", "crate_repositories")
+
+crate_repositories()

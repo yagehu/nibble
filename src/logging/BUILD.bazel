@@ -1,0 +1,14 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//src:__subpackages__"])
+
+rust_library(
+    name = "logging",
+    srcs = glob(["**/*.rs"]),
+    deps = [
+        "@crates//:opentelemetry",
+        "@crates//:tracing",
+        "@crates//:tracing-opentelemetry",
+        "@crates//:tracing-subscriber",
+    ],
+)

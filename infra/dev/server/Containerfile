@@ -1,0 +1,25 @@
+FROM cgr.dev/chainguard/wolfi-base
+
+RUN apk add bash
+
+COPY entrypoint.bash /entrypoint.bash
+
+RUN \
+    wget \
+      --output-document /consul.zip \
+      https://releases.hashicorp.com/consul/1.14.1/consul_1.14.1_linux_amd64.zip \
+    && unzip /consul.zip -d /consul \
+    && wget \
+      --output-document /nomad.zip \
+      https://releases.hashicorp.com/nomad/1.4.3/nomad_1.4.3_linux_amd64.zip \
+    && unzip /nomad.zip -d /nomad
+
+# Nomad HTTP
+EXPOSE 4646
+
+# Consul
+EXPOSE 8500
+EXPOSE 8600/tcp
+EXPOSE 8600/udp
+
+ENTRYPOINT ["/entrypoint.bash"]

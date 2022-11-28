@@ -1,0 +1,15 @@
+{
+  "node_name": "node_1",
+  "server": true,
+  "ui_config": {
+    "enabled": true
+  },
+  "data_dir": "/consul/data",
+  "addresses": {
+    "http": "0.0.0.0"
+  },
+  "ports": {
+    "grpc": 8502
+  },
+  "retry_join": ["node_0", "node_1"]
+}

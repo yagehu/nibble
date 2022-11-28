@@ -1,0 +1,15 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+rust_binary(
+    name = "bin",
+    srcs = glob(["**/*.rs"]),
+    deps = [
+        "//src/logging",
+        "//src/server",
+        "//src/server/config",
+        "//src/thirdparty/libpq",
+        "@crates//:color-eyre",
+        "@crates//:serde_yaml",
+        "@crates//:tokio",
+    ],
+)

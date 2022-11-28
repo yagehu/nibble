@@ -1,0 +1,17 @@
+config
+
+# Bazel
+/bazel-*
+
+# Mac OS
+.DS_Store
+
+# Terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfstate.*.backup
+terraform.lock.hcl
+
+# rust-analyzer
+rust-project.json

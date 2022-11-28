@@ -1,0 +1,17 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//src/server:__subpackages__"])
+
+rust_library(
+    name = "config",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "@crates//:diesel",
+        "@crates//:diesel-async",
+        "@crates//:rustls",
+        "@crates//:serde",
+        "@crates//:tokio",
+        "@crates//:tokio-postgres",
+        "@crates//:tokio-postgres-rustls",
+    ],
+)

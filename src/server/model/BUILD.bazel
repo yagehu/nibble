@@ -1,0 +1,15 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = [
+    "//src/server:__subpackages__",
+])
+
+rust_library(
+    name = "model",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "@crates//:diesel",
+        "@crates//:time",
+        "@crates//:uuid",
+    ],
+)

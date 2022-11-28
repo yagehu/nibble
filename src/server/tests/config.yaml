@@ -1,0 +1,13 @@
+postgresql:
+  main:
+    host: localhost
+    port: 5433
+    user: nibble
+    password: password
+    database: nibble
+  maintenance:
+    host: localhost
+    port: 5433
+    user: postgres
+    password: password
+    database: postgres

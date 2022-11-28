@@ -1,0 +1,11 @@
+package(default_visibility = [
+    "//:__subpackages__",
+])
+
+cc_import(
+    name = "libpq",
+    interface_library = select({
+        "//:x86_64__osx": "libpq.dylib",
+    }),
+    system_provided = True,
+)

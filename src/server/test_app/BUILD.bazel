@@ -1,0 +1,25 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//src/server:__pkg__"])
+
+rust_library(
+    name = "test_app",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "//src/logging",
+        "//src/server",
+        "//src/server/config",
+        "//src/server/view",
+        "//src/thirdparty/libpq",
+        "@crates//:diesel",
+        "@crates//:diesel-async",
+        "@crates//:diesel_migrations",
+        "@crates//:hyper",
+        "@crates//:reqwest",
+        "@crates//:serde",
+        "@crates//:serde_json",
+        "@crates//:serde_yaml",
+        "@crates//:tokio",
+        "@crates//:uuid",
+    ],
+)

@@ -1,0 +1,19 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//src/server:__pkg__"])
+
+rust_library(
+    name = "handler",
+    srcs = glob(["src/**/*.rs"]),
+    proc_macro_deps = [
+        "@crates//:axum-macros",
+    ],
+    deps = [
+        "//src/server/controller",
+        "//src/server/error",
+        "//src/server/view",
+        "@crates//:axum",
+        "@crates//:serde",
+        "@crates//:tracing",
+    ],
+)

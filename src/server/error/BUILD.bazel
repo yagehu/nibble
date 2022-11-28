@@ -1,0 +1,13 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+package(default_visibility = ["//visibility:public"])
+
+rust_library(
+    name = "error",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "@crates//:axum",
+        "@crates//:serde",
+        "@crates//:thiserror",
+    ],
+)
